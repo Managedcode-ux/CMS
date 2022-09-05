@@ -9,7 +9,8 @@ class customerView(APIView):
     serializers_class = customerSerializer
 
     def get(self, request, *args, **kwargs):
-        detail = [{"FirstName": detail.First_Name,
+        detail = [{"id": detail.userId,
+                   "FirstName": detail.First_Name,
                    "LastName": detail.Last_Name,
                    "email": detail.email,
                    "Address": detail.Address_Line,

@@ -1,162 +1,107 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import React from "react";
+import { useState, useEffect } from 'react';
 
 const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+  const [adminDropDown, setadminDropDown] = useState(false);
+  const [mobileNavOpen, setmobileNavOpen] = useState(false);
+
+  const handleClick = () => {
+    if (adminDropDown === false) {
+      setadminDropDown(true)
+    }
+    else {
+      setadminDropDown(false)
+    }
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
+    <div>
+      <nav className={`bg-gray-800  ${mobileNavOpen ? "" : "rounded-b-md"
+        }`}>
+        {/* TAB & DESKTOP MENU */}
+        <div className="hidden sm:flex  justify-between items-center ">
+          <div className="text-slate-50 flex flex-1 h-16 items-center mx-6">
+            <div>
+              <img className="block  h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&amp;shade=500" alt="Workflow" />
+            </div>
+            <div className="mx-5">
+              <a href="#" className="focus:bg-slate-900 focus:text-teal-200 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Home</a>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
+              <a href="#" className="text-gray-300 focus:bg-slate-900 focus:text-teal-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Customers</a>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              <a href="#" className="text-gray-300 focus:bg-slate-900 focus:text-teal-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Orders</a>
+
+            </div>
+          </div>
+
+          <div className="flex text-slate-50 mx-6 items-center cursor-pointer">
+            <svg className="h-6 w-6 mr-5 " x-description="Heroicon name: outline/bell" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"></path>
+            </svg>
+            <img
+              className="h-8 w-8 rounded-full"
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt=""
+              onClick={handleClick}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
-  );
+            </img>
+          </div>
+        </div>
+
+        {/* MOBILE MENU */}
+        <div className=" sm:hidden space-x-18  flex justify-around items-center h-16">
+          <MenuRoundedIcon color="primary" fontSize="medium"
+            onClick={() => {
+              setmobileNavOpen(!mobileNavOpen)
+            }}
+            className=" hover:ring-2 rounded-md cursor-pointer" />
+
+          <div className="pl-10">
+            <img className=" h-8 w-12 justify-center" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&amp;shade=500" alt="Workflow" />
+          </div>
+
+          <div className="flex text-slate-50 items-center cursor-pointer">
+            <svg className="h-6 w-6 mr-5 " x-description="Heroicon name: outline/bell" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"></path>
+            </svg>
+            <img onClick={handleClick} className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt=""></img>
+          </div>
+        </div>
+      </nav>
+
+      {/* PERSONAL SETTINGS */}
+      {
+        adminDropDown && <div className="text-white absolute right-0 z-10  w-48 origin-top-right rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none " role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
+          <a href="#" className="block px-4 py-2 text-sm  focus:bg-slate-500 focus:text-white" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</a>
+          <a href="#" className="block px-4 py-2 text-sm  focus:bg-slate-500 focus:text-white" role="menuitem" tabIndex="-1" id="user-menu-item-1">Settings</a>
+          <a href="#" className="block px-4 py-2 text-sm  focus:bg-slate-500 focus:text-white" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</a>
+        </div>
+
+      }
+
+      {/* MOBILE NAV MENU */}
+      {mobileNavOpen &&
+        <div className={`bg-gray-800 
+      text-white  flex flex-col
+      items-center sm:hidden ease-in-out duration-300
+      ${mobileNavOpen ? "translate-y-0 " : "translate-y-full"}
+      ${mobileNavOpen ? "rounded-b-md" : " "}`}>
+          <a href="#" className='mt-4 w-96 text-center  focus:ring 
+        rounded ring-offset-4 ring-offset-gray-800
+        active:text-teal-400 focus:text-teal-400
+        ' >Home</a>
+          <a href="#" className='mt-4 w-96 text-center  focus:ring 
+        rounded ring-offset-4 ring-offset-gray-800
+        active:text-teal-400 focus:text-teal-400'>Customer</a>
+          <a href="#" className='mt-4 mb-4 w-96 text-center  focus:ring 
+        rounded ring-offset-4 ring-offset-gray-800 
+         active:text-teal-400 focus:text-teal-400'>Order</a>
+        </div>
+      }
+    </div>
+  )
 };
 export default NavBar;

@@ -1,5 +1,5 @@
 import 'tw-elements';
-import CustomerList from './Pages/CustomerList';
+import CustomerList from './Pages/customerDetails/CustomerList';
 function App() {
   return (
     <div className="App ">
